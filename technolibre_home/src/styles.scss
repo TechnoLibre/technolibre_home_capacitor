@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  font-size: 20px;
+  height: 100%;
+  max-height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  font-size: 16px;
+  height: 100%;
+}
+
+:root {
+  --text: #000;
+  --background: #fff;
+  --button-bg-color: rgb(36, 55, 66);
+  --button-text-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #fff;
+    --background: #000;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}

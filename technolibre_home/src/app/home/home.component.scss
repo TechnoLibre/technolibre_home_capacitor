@@ -1,0 +1,41 @@
+main#main {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+div#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#logo {
+  margin: 0 auto;
+  height: 100px;
+  width: 100px;
+}
+
+#buttons {
+  flex-direction: column;
+  display: flex;
+  margin-top: 2em;
+}
+
+.button {
+  background-color: var(--button-bg-color);
+  border: none;
+  border-radius: 0.25em;
+  color: var(--button-text-color);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 100ms ease-in-out;
+  padding: 0.5em 1em;
+  &:hover {
+    background-color: #2b424f;
+  }
+  & + & {
+    margin-top: 1em;
+  }
+}
