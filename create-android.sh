@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-npx cap add android
+./create.sh android

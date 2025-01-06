@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-npx cap add ios
+./create.sh ios
