@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Contacts, PhoneType, EmailType, PermissionStatus, CreateContactResult, ContactInput } from '@capacitor-community/contacts';
+import { AuthenticateOptions, BiometricAuth, BiometryType, CheckBiometryResult } from '@aparajita/capacitor-biometric-auth';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,17 @@ import { Contacts, PhoneType, EmailType, PermissionStatus, CreateContactResult, 
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+  public configureBiometryText = signal("");
+  public hasBiometry = signal(false);
+
+  private biometryType: BiometryType = BiometryType.none;
+
+  async ngOnInit() {
+    await this.setBiometryType();
+    this.setConfigureBiometryText();
+  }
 
   onOpenWebsiteClick() {
     window.open("https://technolibre.ca/web/login", "_blank");
@@ -29,6 +40,89 @@ export class HomeComponent {
             break;
         }
       });
+  }
+
+  async setBiometryType() {
+    const checkBiometryResult: CheckBiometryResult = await BiometricAuth.checkBiometry();
+
+    if (!checkBiometryResult.isAvailable) {
+      this.hasBiometry.set(false);
+    }
+
+    this.hasBiometry.set(true);
+    this.biometryType = checkBiometryResult.biometryType;
+  }
+
+  async configureBiometry() {
+    if (!this.hasBiometry()) {
+      return;
+    }
+
+    try {
+      const options: AuthenticateOptions = {
+        allowDeviceCredential: false,
+        iosFallbackTitle: "",
+        reason: this.getConfigureBiometryReason()
+      };
+      await BiometricAuth.authenticate(options);
+      alert("Authentification effectuée avec succès.");
+    } catch (error) {
+      alert("Erreur lors de la configuration de la biométrie.");
+    }
+  }
+
+  private setConfigureBiometryText() {
+    let newText: string = "";
+
+    switch (this.biometryType) {
+      case 1:
+        newText = "Configurer Touch ID";
+        break;
+      case 2:
+        newText = "Configurer Face ID";
+        break;
+      case 3:
+        newText = "Configurer l'empreinte digitale";
+        break;
+      case 4:
+        newText = "Configurer la reconnaissance faciale";
+        break;
+      case 5:
+        newText = "Configurer la reconnaissance de l'iris";
+        break;
+      case 0:
+      default:
+        break;
+    }
+
+    this.configureBiometryText.set(newText);
+  }
+
+  private getConfigureBiometryReason(): string {
+    let biometryTypeName: string = "";
+
+    switch (this.biometryType) {
+      case 1:
+        biometryTypeName = "Touch ID";
+        break;
+      case 2:
+        biometryTypeName = "Face ID";
+        break;
+      case 3:
+        biometryTypeName = "votre empreinte digitale"
+        break;
+      case 4:
+        biometryTypeName = "la reconnaissance faciale"
+        break;
+      case 5:
+        biometryTypeName = "la reconnaissance de l'iris"
+        break;
+      case 0:
+      default:
+        break;
+    }
+
+    return `Authentifiez-vous avec ${biometryTypeName} pour terminer la configuration.`;
   }
 
   private addContact() {
