@@ -14,9 +14,44 @@ div#content {
   width: 100%;
 }
 
+form#set-data {
+  width: 100%;
+  & .form-section {
+    & + .form-section {
+      margin-top: 0.75em;
+    }
+    width: 100%;
+  }
+  & .form-control, & .form-submit {
+    border: 0.125em solid #333;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1em;
+    outline: none;
+    transition: background-color 150ms ease-in-out;
+  }
+  & .form-control {
+    background-color: #111;
+    margin-top: 0.25em;
+    padding: 0.5em;
+    width: 100%;
+    &:hover {
+      background-color: #1A1A1A;
+    }
+  }
+  & .form-submit {
+    background-color: #222;
+    cursor: pointer;
+    padding: 0.5em 0.75em;
+    &:hover {
+      background-color: #333;
+    }
+  }
+}
+
 table#data-table {
   border-collapse: collapse;
-  font-family: sans-serif;
+  margin-top: 2em;
   width: 100%;
   & thead {
     background-color: #222;
@@ -28,6 +63,9 @@ table#data-table {
     border: 0.125em solid #333;
     padding: 1em;
     text-align: left;
+  }
+  & th {
+    width: 50%;
   }
 }
 

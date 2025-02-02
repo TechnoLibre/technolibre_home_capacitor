@@ -4,6 +4,19 @@
 
 <main id="main">
   <div id="content">
+      <form id="set-data" (submit)="onSetDataSubmit($event)" autocomplete="off">
+        <div class="form-section">
+          <label for="set-data__username">Username</label>
+          <input type="text" name="username" id="set-data__username" class="form-control" [(ngModel)]="formUsernameValue">
+        </div>
+        <div class="form-section">
+          <label for="set-data__password">Password</label>
+          <input type="password" name="password" id="set-data__password" class="form-control" [(ngModel)]="formPasswordValue">
+        </div>
+        <div class="form-section">
+          <input type="submit" value="Submit" id="set-data__submit" class="form-submit">
+        </div>
+      </form>
       <table id="data-table">
         <thead>
           <tr>
@@ -14,11 +27,11 @@
         <tbody>
           <tr>
             <td>Username</td>
-            <td *ngIf="usernameData.isDefined();else undefinedData">{{ usernameData.value() }}</td>
+            <td *ngIf="usernameData.isDefined() && usernameData.value() != '';else undefinedData">{{ usernameData.value() }}</td>
           </tr>
           <tr>
             <td>Password</td>
-            <td *ngIf="passwordData.isDefined();else undefinedData">{{ passwordData.value() }}</td>
+            <td *ngIf="passwordData.isDefined() && passwordData.value() != '';else undefinedData">{{ passwordData.value() }}</td>
           </tr>
         </tbody>
       </table>

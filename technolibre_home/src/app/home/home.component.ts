@@ -1,21 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Signal, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
+
+type DataParam = {
+  isDefined: WritableSignal<any>,
+  value: WritableSignal<any>
+}
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
 
-  usernameData = {
+  formUsernameValue = "";
+  formPasswordValue = "";
+
+  usernameData: DataParam = {
     isDefined: signal(false),
     value: signal("")
   };
 
-  passwordData = {
+  passwordData: DataParam = {
     isDefined: signal(false),
     value: signal("")
   };
@@ -24,22 +33,51 @@ export class HomeComponent implements OnInit {
     this.fetchUsernamePassword();
   }
 
+  public async onSetDataSubmit(event: Event) {
+    event.preventDefault();
+    await this.setUsernamePassword();
+    await this.fetchUsernamePassword();
+    this.resetInputs();
+  }
+
   private async fetchUsernamePassword() {
     try {
       const tempUsername = await SecureStoragePlugin.get({ key: "username" });
-      this.usernameData.isDefined.set(true);
-      this.usernameData.value.set(tempUsername.value);
+      this.setDataParam(this.usernameData, true, tempUsername.value);
     } catch (error) {
-      this.usernameData.isDefined.set(false);
-      this.usernameData.value.set("");
+      this.setDataParam(this.usernameData, false, "");
     }
 
     try {
       const tempPassword = await SecureStoragePlugin.get({ key: "password" });
-      this.passwordData.value.set(tempPassword.value);
+      this.setDataParam(this.passwordData, true, tempPassword.value);
     } catch (error) {
-      this.passwordData.value.set("");
+      this.setDataParam(this.passwordData, false, "");
     }
+  }
+
+  private async setUsernamePassword() {
+    if (!this.formUsernameValue) {
+      SecureStoragePlugin.set({ key: "username", value: "" });
+    } else {
+      SecureStoragePlugin.set({ key: "username", value: this.formUsernameValue });
+    }
+
+    if (!this.formPasswordValue) {
+      SecureStoragePlugin.set({ key: "password", value: "" });
+    } else {
+      SecureStoragePlugin.set({ key: "password", value: this.formPasswordValue });
+    }
+  }
+
+  private resetInputs() {
+    this.formUsernameValue = "";
+    this.formPasswordValue = "";
+  }
+
+  private setDataParam(object: DataParam, newIsDefined: boolean, newValue: string) {
+    object.isDefined.set(newIsDefined);
+    object.value.set(newValue);
   }
 
 }
