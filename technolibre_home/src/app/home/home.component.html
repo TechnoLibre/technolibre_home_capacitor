@@ -1,1 +1,26 @@
-<p>login works!</p>
+<ng-template #undefinedData>
+  <td class="undefined-data">undefined</td>
+</ng-template>
+
+<main id="main">
+  <div id="content">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Username</td>
+            <td *ngIf="usernameData.isDefined();else undefinedData">{{ usernameData.value() }}</td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td *ngIf="passwordData.isDefined();else undefinedData">{{ passwordData.value() }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</main>

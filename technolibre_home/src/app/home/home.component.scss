@@ -1,0 +1,36 @@
+main#main {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+div#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2em;
+  width: 100%;
+}
+
+table#data-table {
+  border-collapse: collapse;
+  font-family: sans-serif;
+  width: 100%;
+  & thead {
+    background-color: #222;
+  }
+  & tbody {
+    background-color: #111;
+  }
+  & th, & td {
+    border: 0.125em solid #333;
+    padding: 1em;
+    text-align: left;
+  }
+}
+
+td.undefined-data {
+  color: #aaa;
+}
