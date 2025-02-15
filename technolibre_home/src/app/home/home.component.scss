@@ -1,3 +1,29 @@
+:host {
+  --form__element__border-color: #333;
+  --form__control__background-color: #111;
+  --form__control__background-color--hover: #1A1A1A;
+  --form__submit__background-color: #222;
+  --form__submit__background-color--hover: #333;
+  --table__head__background-color: #222;
+  --table__body__background-color: #111;
+  --table__element__border-color: #333;
+  --table__undefined-data__color: #aaa;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --form__element__border-color: #333;
+    --form__control__background-color: #111;
+    --form__control__background-color--hover: #1A1A1A;
+    --form__submit__background-color: #222;
+    --form__submit__background-color--hover: #333;
+    --table__head__background-color: #222;
+    --table__body__background-color: #111;
+    --table__element__border-color: #333;
+    --table__undefined-data__color: #aaa;
+  }
+}
+
 main#main {
   align-items: center;
   display: flex;
@@ -23,28 +49,29 @@ form#set-data {
     width: 100%;
   }
   & .form-control, & .form-submit {
-    border: 0.125em solid #333;
+    border: 0.125em solid var(--form__element__border-color);
     box-sizing: border-box;
-    color: #fff;
+    color: var(--button-text-color);
     font-size: 1em;
     outline: none;
     transition: background-color 150ms ease-in-out;
   }
   & .form-control {
-    background-color: #111;
+    background-color: var(--form__control__background-color);
     margin-top: 0.25em;
     padding: 0.5em;
     width: 100%;
     &:hover {
-      background-color: #1A1A1A;
+      background-color: var(--form__control__background-color--hover);
     }
   }
   & .form-submit {
-    background-color: #222;
+    background-color: var(--form__submit__background-color);
+    color: var(--button-text-color);
     cursor: pointer;
     padding: 0.5em 0.75em;
     &:hover {
-      background-color: #333;
+      background-color: var(--form__submit__background-color--hover);
     }
   }
 }
@@ -54,13 +81,13 @@ table#data-table {
   margin-top: 2em;
   width: 100%;
   & thead {
-    background-color: #222;
+    background-color: var(--table__head__background-color);
   }
   & tbody {
-    background-color: #111;
+    background-color: var(--table__body__background-color);
   }
   & th, & td {
-    border: 0.125em solid #333;
+    border: 0.125em solid var(--table__element__border-color);
     padding: 1em;
     text-align: left;
   }
@@ -70,5 +97,5 @@ table#data-table {
 }
 
 td.undefined-data {
-  color: #aaa;
+  color: var(--table__undefined-data__color);
 }
