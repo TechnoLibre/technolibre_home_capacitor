@@ -11,7 +11,7 @@
   --table__body__background-color: #eee;
   --table__element__border-color: #aaa;
   --table__element__color: #000;
-  --table__undefined-data__color: #aaa;
+  --table__undefined-data__color: #666;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,8 +104,7 @@ table#data-table {
   & th {
     width: 50%;
   }
-}
-
-td.undefined-data {
-  color: var(--table__undefined-data__color);
+  & td.undefined-data {
+    color: var(--table__undefined-data__color);
+  }
 }
