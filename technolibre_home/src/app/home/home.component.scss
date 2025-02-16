@@ -1,25 +1,33 @@
 :host {
-  --form__element__border-color: #333;
-  --form__control__background-color: #111;
-  --form__control__background-color--hover: #1A1A1A;
-  --form__submit__background-color: #222;
-  --form__submit__background-color--hover: #333;
-  --table__head__background-color: #222;
-  --table__body__background-color: #111;
-  --table__element__border-color: #333;
+  --form__element__color: #000;
+  --form__control__background-color: #eee;
+  --form__control__background-color--hover: #ddd;
+  --form__control__border-color: #aaa;
+  --form__submit__background-color: rgb(36, 55, 66);
+  --form__submit__background-color--hover: #1d2c35;
+  --form__submit__border-color: #1d2c35;
+  --form__submit__color: #fff;
+  --table__head__background-color: #ccc;
+  --table__body__background-color: #eee;
+  --table__element__border-color: #aaa;
+  --table__element__color: #000;
   --table__undefined-data__color: #aaa;
 }
 
 @media (prefers-color-scheme: dark) {
   :host {
-    --form__element__border-color: #333;
+    --form__element__color: #fff;
     --form__control__background-color: #111;
     --form__control__background-color--hover: #1A1A1A;
+    --form__control__border-color: #333;
     --form__submit__background-color: #222;
     --form__submit__background-color--hover: #333;
+    --form__submit__border-color: #333;
+    --form__submit__color: #fff;
     --table__head__background-color: #222;
     --table__body__background-color: #111;
     --table__element__border-color: #333;
+    --table__element__color: #fff;
     --table__undefined-data__color: #aaa;
   }
 }
@@ -49,15 +57,15 @@ form#set-data {
     width: 100%;
   }
   & .form-control, & .form-submit {
-    border: 0.125em solid var(--form__element__border-color);
     box-sizing: border-box;
-    color: var(--button-text-color);
+    color: var(--form__element__color);
     font-size: 1em;
     outline: none;
     transition: background-color 150ms ease-in-out;
   }
   & .form-control {
     background-color: var(--form__control__background-color);
+    border: 0.125em solid var(--form__control__border-color);
     margin-top: 0.25em;
     padding: 0.5em;
     width: 100%;
@@ -67,7 +75,8 @@ form#set-data {
   }
   & .form-submit {
     background-color: var(--form__submit__background-color);
-    color: var(--button-text-color);
+    border: 0.125em solid var(--form__submit__border-color);
+    color: var(--form__submit__color);
     cursor: pointer;
     padding: 0.5em 0.75em;
     &:hover {
@@ -88,6 +97,7 @@ table#data-table {
   }
   & th, & td {
     border: 0.125em solid var(--table__element__border-color);
+    color: var(--table__element__color);
     padding: 1em;
     text-align: left;
   }
